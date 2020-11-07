@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Dawn Bowerman" />
+
+
+<title>Beers&amp;Breweries</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Frododawn's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">About</a>
+</li>
+<li>
+  <a href="Beers-BreweriesRMDbu.html">Breweries EDA</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Beers&amp;Breweries</h1>
+<h4 class="author">Dawn Bowerman</h4>
+<h4 class="date">10/7/2020</h4>
+
+</div>
+
+
+<p>#Beers and Breweries RMD:Exploratory Data Analysis of U.S. Beers and Breweries for Budweiser</p>
+<div id="question-number-1-how-many-breweries-are-present-in-each-state" class="section level1">
+<h1>Question Number 1: How many breweries are present in each state?</h1>
+<p>## This code gets count by state and gives the summary statistics.</p>
+<p>###The Median breweries per state is 7.00, the Mean is 10.94. The least amount per state is 1 and the most is 47 (Colorado)</p>
+<pre class="r"><code>library(GGally)</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v tibble  3.0.4     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.0
+## v purrr   0.3.4</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>Breweries &lt;- read.csv(&quot;H:/Schools/SMU/DoingDataScienceHomework/UnitOne/Unit One/Unit 8 and 9 Case Study 1/Breweries.csv&quot;)
+Beers &lt;- read.csv(&quot;H:/Schools/SMU/DoingDataScienceHomework/UnitOne/Unit One/Unit 8 and 9 Case Study 1/Beers.csv&quot;)
+
+
+BrewCount &lt;- Breweries %&gt;% group_by(State)
+view(BrewCount)
+
+totalBrewCount = count(Breweries, State)
+view(totalBrewCount)
+
+
+Breweries %&gt;% ggplot(aes(x = State, fill = State)) + geom_bar() + geom_text(aes(State, totalBrewCount$n+2, label = totalBrewCount$n, fill = NULL), data = totalBrewCount) + ggtitle(&quot;U.S. Breweries count by State&quot;) + ylab(&quot;Brewery Count&quot;)</code></pre>
+<pre><code>## Warning: Use of `totalBrewCount$n` is discouraged. Use `n` instead.</code></pre>
+<pre><code>## Warning: Use of `totalBrewCount$n` is discouraged. Use `n` instead.</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>summary(totalBrewCount)</code></pre>
+<pre><code>##     State                 n        
+##  Length:51          Min.   : 1.00  
+##  Class :character   1st Qu.: 3.50  
+##  Mode  :character   Median : 7.00  
+##                     Mean   :10.94  
+##                     3rd Qu.:16.00  
+##                     Max.   :47.00</code></pre>
+</div>
+<div id="question-2-merge-beer-data-with-the-breweries-data.-print-the-first-6-observations-and-the-last-six-observations-to-check-the-merged-file." class="section level1">
+<h1>Question # 2: Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.</h1>
+<p>## This code merges the two dataframes and prints the first and last 6</p>
+<pre class="r"><code>mergeBeerBrew &lt;- merge(Breweries,Beers, by.x = &quot;Brew_ID&quot;, by.y = &quot;Brewery_id&quot;)
+
+head(mergeBeerBrew)</code></pre>
+<pre><code>##   Brew_ID             Name.x        City State        Name.y Beer_ID   ABV IBU
+## 1       1 NorthGate Brewing  Minneapolis    MN       Pumpion    2689 0.060  38
+## 2       1 NorthGate Brewing  Minneapolis    MN    Stronghold    2688 0.060  25
+## 3       1 NorthGate Brewing  Minneapolis    MN   Parapet ESB    2687 0.056  47
+## 4       1 NorthGate Brewing  Minneapolis    MN  Get Together    2692 0.045  50
+## 5       1 NorthGate Brewing  Minneapolis    MN Maggie&#39;s Leap    2691 0.049  26
+## 6       1 NorthGate Brewing  Minneapolis    MN    Wall&#39;s End    2690 0.048  19
+##                                 Style Ounces
+## 1                         Pumpkin Ale     16
+## 2                     American Porter     16
+## 3 Extra Special / Strong Bitter (ESB)     16
+## 4                        American IPA     16
+## 5                  Milk / Sweet Stout     16
+## 6                   English Brown Ale     16</code></pre>
+<pre class="r"><code>tail(mergeBeerBrew)</code></pre>
+<pre><code>##      Brew_ID                        Name.x          City State                    Name.y Beer_ID   ABV IBU
+## 2405     556         Ukiah Brewing Company         Ukiah    CA             Pilsner Ukiah      98 0.055  NA
+## 2406     557       Butternuts Beer and Ale Garrattsville    NY         Porkslap Pale Ale      49 0.043  NA
+## 2407     557       Butternuts Beer and Ale Garrattsville    NY           Snapperhead IPA      51 0.068  NA
+## 2408     557       Butternuts Beer and Ale Garrattsville    NY         Moo Thunder Stout      50 0.049  NA
+## 2409     557       Butternuts Beer and Ale Garrattsville    NY  Heinnieweisse Weissebier      52 0.049  NA
+## 2410     558 Sleeping Lady Brewing Company     Anchorage    AK Urban Wilderness Pale Ale      30 0.049  NA
+##                        Style Ounces
+## 2405         German Pilsener     12
+## 2406 American Pale Ale (APA)     12
+## 2407            American IPA     12
+## 2408      Milk / Sweet Stout     12
+## 2409              Hefeweizen     12
+## 2410        English Pale Ale     12</code></pre>
+</div>
+<div id="number-3-address-the-missing-values-in-each-column-also-see-next-chunk." class="section level1">
+<h1>number 3: Address the missing values in each column; also see next chunk.</h1>
+<p>## This chunk shows where the missing values are in the dataframe.</p>
+<div id="after-viewing-the-areas-where-there-is-missing-data-i-have-determined-to-delete-the-nas-out-of-some-of-the-analysis-ibu---ale-comparison-median-alcohol-where-it-doesnt-effect-the-result-as-much-and-leave-in-where-it-does-such-as-number-of-breweries.-the-missing-values-are-mcar-missing-completely-at-random-in-my-determination-as-their-missing-value-has-nothing-to-do-with-their-hypothetical-value-and-with-the-values-of-other-variables." class="section level3">
+<h3>After viewing the areas where there is missing data, I have determined to delete the NAs out of some of the analysis (IBU - ALe comparison, median alcohol) where it doesn’t effect the result as much and leave in where it does (such as number of breweries.) The missing values are MCAR (Missing Completely at Random) in my determination as their missing value has nothing to do with their hypothetical value and with the values of other variables.</h3>
+<pre class="r"><code>cleanMergeBeerBrew &lt;- !is.na(mergeBeerBrew)
+view(cleanMergeBeerBrew)</code></pre>
+<pre><code>## Showing first 1000 rows.</code></pre>
+</div>
+</div>
+<div id="number3-4-address-the-missing-values-in-each-column-compute-the-median-alcohol-content-for-each-state.-plot-a-bar-chart-to-compare." class="section level1">
+<h1>number3 &amp; 4: Address the missing values in each column &amp; Compute the median alcohol content for each state. Plot a bar chart to compare.</h1>
+<div id="the-median-alcohol-by-volume-for-most-states-is-about-0.056-utah-and-new-jersey-are-atypically-low." class="section level3">
+<h3>The median alcohol by volume for most states is about 0.056, Utah and New Jersey are atypically low.</h3>
+<p>## This chunk filters the ABV na’s out of the dataframe and summarizes the median Alcohol by Volume by state and plots it</p>
+<pre class="r"><code>mergeBeerBrew %&gt;% filter(!is.na(ABV)) %&gt;% group_by(State) %&gt;% summarise(medianABV = median(ABV),count = n()) %&gt;% ggplot(aes(x = State, y = medianABV, fill = State)) + geom_bar(stat=&quot;identity&quot;) + ggtitle(&quot;ABV median by State&quot;) + ylab(&quot;Median ABV&quot;)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+<div id="number3-4-address-the-missing-values-in-each-column-compute-the-international-bitterness-unit-for-each-state.-plot-a-bar-chart-to-compare." class="section level1">
+<h1>number3 &amp; 4: Address the missing values in each column &amp; Compute the international bitterness unit for each state. Plot a bar chart to compare.</h1>
+<div id="the-median-ibu-by-state-has-more-variability-that-the-abv.-states-with-the-most-bitter-beer-are-maine-and-west-virginia.-states-with-the-lowest-are-wisconsin-and-wyoming." class="section level2">
+<h2>The median IBU by state has more variability that the ABV. States with the most bitter beer are Maine and West Virginia. States with the lowest are Wisconsin and Wyoming.</h2>
+<p>##This chunk filters the IBU Na’s out of the dataframe and summarizes the median International Bitterness Units (IBU) by state and plots it</p>
+<pre class="r"><code> mergeBeerBrew %&gt;% filter(!is.na(IBU)) %&gt;% group_by(State) %&gt;% summarize(medianIBU = median(IBU), count = n()) %&gt;% ggplot(aes(x = State, y = medianIBU, color = State)) + geom_bar(stat=&quot;identity&quot;) + ggtitle(&quot;IBU median by State&quot;) + ylab(&quot;Median IBU&quot;)   </code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="question-number-5.1-which-state-has-the-maximum-alcoholic-abv-beer" class="section level1">
+<h1>Question number 5.1; Which state has the maximum alcoholic (ABV) beer?</h1>
+<div id="the-state-with-the-beer-with-the-highest-abv-is-colorado.-kentucky-and-indiana-are-second-and-third.-most-breweries-have-a-maximum-abv-of-0.100." class="section level2">
+<h2>The State with the beer with the highest ABV is Colorado. Kentucky and Indiana are second and third. Most breweries have a maximum ABV of 0.100.</h2>
+<p>### This chunk groups by ABV and State and plots the Alcohol by Volume (ABV) by state.</p>
+<pre class="r"><code>by_ABVBeerBrew &lt;- mergeBeerBrew %&gt;% group_by(ABV, State)
+view(by_ABVBeerBrew)
+
+ggplot(by_ABVBeerBrew, aes(x=State, y=ABV, color = State)) + 
+  geom_point(size=3) + ggtitle(&quot;Beer ABV by State&quot;) + scale_y_continuous(breaks=seq(0, 0.150, by = 0.005))</code></pre>
+<pre><code>## Warning: Removed 62 rows containing missing values (geom_point).</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+<div id="question-number-5.2-which-state-has-the-most-bitter-ibu-beer" class="section level1">
+<h1>Question number 5.2; Which state has the most bitter (IBU) beer?</h1>
+<div id="again-bitterness-is-more-variable-than-abv.-the-states-with-the-most-bitter-beer-are-1st-2nd-and-3rd-respectively-oregon-virginia-and-maine." class="section level2">
+<h2>Again, bitterness is more variable than ABV. The states with the most bitter beer are 1st, 2nd, and 3rd, respectively; Oregon, Virginia, and Maine.</h2>
+<p>### This chunk groups by IBU and State and plots the International Bitterness Unit (IBV) by state</p>
+<pre class="r"><code>by_IBUBeerBrew &lt;- mergeBeerBrew %&gt;% group_by(IBU, State)
+view(by_ABVBeerBrew)
+
+ggplot(by_IBUBeerBrew, aes(x=State, y=IBU, color = State)) + 
+  geom_point(size=3) + ggtitle(&quot;Beer IBU by State&quot;) + scale_y_continuous(breaks=seq(0, 175, by = 5))</code></pre>
+<pre><code>## Warning: Removed 1005 rows containing missing values (geom_point).</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+</div>
+<div id="question-number-6-comment-on-the-summary-statistics-and-distribution-of-the-abv-variable" class="section level1">
+<h1>question number 6: Comment on the summary statistics and distribution of the ABV variable</h1>
+<div id="the-distribution-of-the-alcohol-by-volume-variable-is-right-skewed-starting-at-about-0.025-and-the-largest-portion-ends-at-about-0.10-and-then-has-a-few-outliers-after-that.-the-median-is-0.05600-and-the-mean-is-0.05977.-the-max-is-0.128-abv.-there-were-62-beers-that-did-not-have-their-abv-listed-in-the-dataframe." class="section level2">
+<h2>The distribution of the Alcohol by Volume variable is right-skewed starting at about 0.025 and The largest portion ends at about 0.10 and then has a few outliers after that. The median is 0.05600 and the mean is 0.05977. The Max is 0.128 ABV. There were 62 beers that did not have their ABV listed in the dataframe.</h2>
+<p>### This chunk filters the na’s of the ABV variable and plots a histogram of the ABV. Then gives a summary of the variable.</p>
+<pre class="r"><code>mergeBeerBrew %&gt;% filter(!is.na(ABV)) %&gt;% group_by(ABV) %&gt;%
+ggplot(aes(x = ABV, fill = State)) + 
+geom_histogram() + ggtitle(&quot;Distribution of Alcohol Content in U.S. Beers&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>summary(mergeBeerBrew$ABV)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+## 0.00100 0.05000 0.05600 0.05977 0.06700 0.12800      62</code></pre>
+</div>
+</div>
+<div id="question-7.1-is-there-an-apparent-relationship-between-the-bitterness-of-the-beer-and-its-alcoholic-content-draw-a-scatter-plot.-make-your-best-judgment-of-a-relationship-and-explain-your-answer." class="section level1">
+<h1>Question 7.1; Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot. Make your best judgment of a relationship and EXPLAIN your answer.</h1>
+<div id="looking-at-the-graph-the-relationship-between-abu-and-ibu-does-look-linear-however-there-is-an-area-at-0.05-abv-and-20-25-ibu-thats-dense-indicating-that-most-beers-are-created-with-these-characteristics.-notice-also-that-there-are-some-high-abv-beers-that-are-not-as-bitter-this-might-be-beers-that-dont-have-as-much-hops-in-them-or-were-created-to-be-less-bitter." class="section level2">
+<h2>Looking at the graph, The relationship between ABU and IBU does look linear, however there is an area at 0.05 ABV and 20-25 IBU that’s dense indicating that most beers are created with these characteristics. Notice also, that there are some high ABV beers that are not as bitter; This might be beers that don’t have as much hops in them or were created to be less bitter.</h2>
+<p>### This code plots a scatter plot of ABV by IBU and colors by State.</p>
+<pre class="r"><code>mergeBeerBrew %&gt;%
+ggplot(aes(x = ABV, y = IBU, color = State)) +
+geom_point() + ggtitle(&quot;Beer Alcohol Content v. Beer IBU&quot;)</code></pre>
+<pre><code>## Warning: Removed 1005 rows containing missing values (geom_point).</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+</div>
+<div id="question-7.2-abv-vs.-ibu-by-state" class="section level1">
+<h1>Question 7.2; ABV vs. IBU by State;</h1>
+<div id="if-you-look-at-each-states-plot-some-are-very-linear-where-others-tend-to-split-off-from-the-main-line.-each-state-has-a-unique-profile.-it-would-seem-some-beers-are-made-with-a-high-abv-and-a-lower-bitterness-profile.-you-can-still-see-the-dense-area-at-0.055-abv-and-20-25-ibu-especially-in-the-colorado-and-california-plots." class="section level2">
+<h2>If you look at each states’ plot some are very linear where others tend to split off from the main line. Each state has a unique profile. It would seem some beers are made with a high ABV and a lower bitterness profile. You can still see the dense area at 0.055 ABV and 20-25 IBU especially in the Colorado and California plots.</h2>
+<p>### This chunk does the same as the previous code but with separate graphs by state.</p>
+<pre class="r"><code>ggplot(data = mergeBeerBrew) + 
+  geom_point(mapping = aes(x = ABV, y = IBU, color = State)) +
+  facet_wrap(~State) + ggtitle(&quot;Beer Alcohol Content v. Beer IBU by State&quot;)</code></pre>
+<pre><code>## Warning: Removed 1005 rows containing missing values (geom_point).</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+</div>
+<div id="question-8.1-budweiser-would-also-like-to-investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-india-pale-ales-and-other-types-of-ale-any-beer-with-ale-in-its-name-other-than-ipa.-you-decide-to-use-knn-classification-to-investigate-this-relationship.-provide-statistical-evidence-one-way-or-the-other." class="section level1">
+<h1>Question 8.1; Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA). You decide to use KNN classification to investigate this relationship. Provide statistical evidence one way or the other.</h1>
+<p>## This chunk sets up the statistical packages and merges and filters the data again for the following code.</p>
+<pre class="r"><code>library(class)
+library(caret)</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## 
+## Attaching package: &#39;caret&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     lift</code></pre>
+<pre class="r"><code>library(e1071)</code></pre>
+<pre><code>## Warning: package &#39;e1071&#39; was built under R version 4.0.3</code></pre>
+<pre class="r"><code>#############
+
+#merge Beer and Breweries
+
+mergeBeerBrew &lt;- merge(Breweries,Beers, by.x = &quot;Brew_ID&quot;, by.y = &quot;Brewery_id&quot;)
+
+# filtered na&#39;s for both IBU and ABV
+ filmerBeerBrw &lt;- mergeBeerBrew %&gt;% filter(!is.na(ABV)) %&gt;%  filter(!is.na(IBU))
+ view(filmerBeerBrw)</code></pre>
+</div>
+<div id="question-8.2-budweiser-would-also-like-to-investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-india-pale-ales-and-other-types-of-ale-any-beer-with-ale-in-its-name-other-than-ipa.-you-decide-to-use-knn-classification-to-investigate-this-relationship.-provide-statistical-evidence-one-way-or-the-other." class="section level1">
+<h1>Question 8.2; Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA). You decide to use KNN classification to investigate this relationship. Provide statistical evidence one way or the other.</h1>
+<p>## This code filters the Style column and creates a new column based on the type of Beer in the Style column. Getting the data ready to use in the KNN code.</p>
+<pre class="r"><code>filmerBeerBrw %&gt;% filter(grepl(&#39;\\bale\\b&#39;, Style, ignore.case=T)) %&gt;%
+filter(grepl(&#39;\\bale\\b&#39;, Style, ignore.case=T)) %&gt;%
+filter(grepl(&#39;\\bIPA\\b&#39;, Style, ignore.case=T))</code></pre>
+<pre><code>##   Brew_ID                     Name.x                City State                      Name.y Beer_ID   ABV IBU
+## 1      54          Bent Brewstillery           Roseville    MN                        Moar    2558 0.044  44
+## 2     108    Bonfire Brewing Company               Eagle    CO Farmer Wirtz India Pale Ale    1549 0.070  94
+## 3     216         Texian Brewing Co.            Richmond    TX                      Brutus    2116 0.071  69
+## 4     269 Long Trail Brewing Company Bridgewater Corners    VT              Long Trail IPA    1926 0.059  42
+## 5     279  Berkshire Brewing Company     South Deerfield    MA             Lost Sailor IPA    1900 0.055  40
+## 6     438           Brooklyn Brewery            Brooklyn    NY         East India Pale Ale     566 0.068  47
+## 7     438           Brooklyn Brewery            Brooklyn    NY         East India Pale Ale    1279 0.068  47
+##                          Style Ounces
+## 1 English India Pale Ale (IPA)     12
+## 2 English India Pale Ale (IPA)     16
+## 3 English India Pale Ale (IPA)     12
+## 4 English India Pale Ale (IPA)     12
+## 5 English India Pale Ale (IPA)     12
+## 6 English India Pale Ale (IPA)     12
+## 7 English India Pale Ale (IPA)     16</code></pre>
+<pre class="r"><code>Ales.beer &lt;- cbind(filmerBeerBrw, type=&#39;Ales&#39;, stringsAsFactors=F) %&gt;% filter(grepl(&#39;\\bale\\b&#39;, Style, ignore.case=T))
+
+view(Ales.beer)
+
+
+filmerBeerBrw %&gt;% filter(grepl(&#39;\\bipa\\b&#39;, Style, ignore.case=T)) %&gt;%
+filter(grepl(&#39;\\bipa\\b&#39;, Style, ignore.case=T)) %&gt;%
+filter(grepl(&#39;\\bAle\\b&#39;, Style, ignore.case=T))</code></pre>
+<pre><code>##   Brew_ID                     Name.x                City State                      Name.y Beer_ID   ABV IBU
+## 1      54          Bent Brewstillery           Roseville    MN                        Moar    2558 0.044  44
+## 2     108    Bonfire Brewing Company               Eagle    CO Farmer Wirtz India Pale Ale    1549 0.070  94
+## 3     216         Texian Brewing Co.            Richmond    TX                      Brutus    2116 0.071  69
+## 4     269 Long Trail Brewing Company Bridgewater Corners    VT              Long Trail IPA    1926 0.059  42
+## 5     279  Berkshire Brewing Company     South Deerfield    MA             Lost Sailor IPA    1900 0.055  40
+## 6     438           Brooklyn Brewery            Brooklyn    NY         East India Pale Ale     566 0.068  47
+## 7     438           Brooklyn Brewery            Brooklyn    NY         East India Pale Ale    1279 0.068  47
+##                          Style Ounces
+## 1 English India Pale Ale (IPA)     12
+## 2 English India Pale Ale (IPA)     16
+## 3 English India Pale Ale (IPA)     12
+## 4 English India Pale Ale (IPA)     12
+## 5 English India Pale Ale (IPA)     12
+## 6 English India Pale Ale (IPA)     12
+## 7 English India Pale Ale (IPA)     16</code></pre>
+<pre class="r"><code>IPAs.beer &lt;- cbind(filmerBeerBrw, type=&#39;IPAs&#39;, stringsAsFactors=F) %&gt;% filter(grepl(&#39;\\bipa\\b&#39;, Style, ignore.case=T))
+
+view(IPAs.beer)</code></pre>
+</div>
+<div id="question-8.3-budweiser-would-also-like-to-investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-india-pale-ales-and-other-types-of-ale-any-beer-with-ale-in-its-name-other-than-ipa.-you-decide-to-use-knn-classification-to-investigate-this-relationship.-provide-statistical-evidence-one-way-or-the-other." class="section level1">
+<h1>Question 8.3; Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA). You decide to use KNN classification to investigate this relationship. Provide statistical evidence one way or the other.</h1>
+<p>## This chunk combines the two previous dataframes by row &amp; filters NA’s.</p>
+<pre class="r"><code>AllIPAsAleBeers &lt;- rbind(Ales.beer, IPAs.beer)
+
+ na.meripa.aleBeerBrw &lt;- AllIPAsAleBeers %&gt;% filter(!is.na(ABV)) %&gt;%  filter(!is.na(IBU))
+ view(na.meripa.aleBeerBrw) </code></pre>
+<p>#Question 8.4; Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA). You decide to use KNN classification to investigate this relationship. Provide statistical evidence one way or the other.</p>
+<div id="this-code-uses-the-previously-combined-dataframe-to-take-500-tests-to-check-for-the-best-k-value-nearest-neighbors-to-get-the-best-classification-results.-the-best-k-value-for-the-knn-test-is-6-based-on-the-highest-point-in-the-graph." class="section level2">
+<h2>This code uses the previously combined dataframe to take 500 tests to check for the best k value (nearest neighbors) to get the best classification results. The best k value for the KNN test is 6, based on the highest point in the graph.</h2>
+<pre class="{r"><code>
+splitPerc = .75
+
+iterations = 500
+numks = 30
+
+masterAcc = matrix(nrow = iterations, ncol = numks)
+  
+for(j in 1:iterations)
+{
+accs = data.frame(accuracy = numeric(30), k = numeric(30))
+trainIndices = sample(1:dim(na.meripa.aleBeerBrw)[1],round(splitPerc * dim(na.meripa.aleBeerBrw)[1]))
+train = na.meripa.aleBeerBrw[trainIndices,]
+test = na.meripa.aleBeerBrw[-trainIndices,]
+for(i in 1:numks)
+{
+  classifications = knn(train[,c(7,8)],test[,c(7,8)],train$type, prob = TRUE, k = i)
+  table(classifications,test$type)
+  CM = confusionMatrix(table(classifications,test$type))
+  masterAcc[j,i] = CM$overall[1]
+}
+
+}
+
+MeanAcc = colMeans(masterAcc)
+
+plot(seq(1,numks,1),MeanAcc, type = &quot;l&quot;)</code></pre>
+</div>
+</div>
+<div id="question-8.5-budweiser-would-also-like-to-investigate-the-difference-with-respect-to-ibu-and-abv-between-ipas-india-pale-ales-and-other-types-of-ale-any-beer-with-ale-in-its-name-other-than-ipa.-you-decide-to-use-knn-classification-to-investigate-this-relationship.-provide-statistical-evidence-one-way-or-the-other." class="section level1">
+<h1>Question 8.5; Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA). You decide to use KNN classification to investigate this relationship. Provide statistical evidence one way or the other.</h1>
+<div id="based-on-the-previous-test-the-best-k-value-for-the-knn-test-is-6-the-highest-point-in-the-graph-so-we-use-that-value-to-create-a-table-and-a-confusion-matrix-that-analyzes-the-abv-and-ibu-data-to-predict-the-ale-beers-and-the-ipas." class="section level2">
+<h2>Based on the previous test, the best k value for the KNN test is 6 (the highest point in the graph), so we use that value to create a table and a confusion matrix that analyzes the ABV and IBU data to predict the “Ale” beers and the IPAs.</h2>
+<div id="the-knn-classification-test-has-an-accuracy-of-0.8529.-with-sensitivity-0.8784-and-specificity-0.8111.-this-is-a-very-robust-analysis-and-shows-that-there-are-consistent-differences-in-alcohol-content-and-ibu-between-the-two-beer-types." class="section level3">
+<h3>The KNN classification test has an accuracy of 0.8529. with sensitivity 0.8784 and Specificity 0.8111. This is a very robust analysis and shows that there are consistent differences in alcohol content and IBU between the two beer types.</h3>
+<pre class="r"><code>classifications = knn(train[,c(7,8)],test[,c(7,8)],train$type, prob = TRUE, k = 6)</code></pre>
+<pre><code>## Error in train[, c(7, 8)]: object of type &#39;closure&#39; is not subsettable</code></pre>
+<pre class="r"><code>table(test$type,classifications)</code></pre>
+<pre><code>## Error in table(test$type, classifications): object &#39;test&#39; not found</code></pre>
+<pre class="r"><code>confusionMatrix(table(test$type,classifications))</code></pre>
+<pre><code>## Error in table(test$type, classifications): object &#39;test&#39; not found</code></pre>
+</div>
+</div>
+</div>
+<div id="question-9-number-of-ales-vs.-number-of-ipas-by-state." class="section level1">
+<h1>Question 9; Number of Ales Vs. Number of IPAs by State.</h1>
+<div id="shown-by-this-graph-most-states-favor-ales-over-ipas-by-a-slight-margin.-however-interestingly-most-of-the-coastal-states-tend-to-favor-ipas-over-ales." class="section level2">
+<h2>Shown by this graph, most states favor Ales over IPAs by a slight margin. However, interestingly most of the coastal states tend to favor IPAs over Ales.</h2>
+<p>### This code gives the number of Ales vs. the number of IPAs by State.</p>
+<pre class="r"><code>  na.meripa.aleBeerBrw %&gt;% ggplot(aes(x = State, fill = type)) + geom_bar() + ggtitle(&quot;Ales Vs. IPAs by State&quot;)</code></pre>
+<p><img src="Beers-BreweriesRMDbu_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

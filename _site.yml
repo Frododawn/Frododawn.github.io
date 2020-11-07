@@ -1,0 +1,9 @@
+
+name: "Frododawn's Website"
+navbar: 
+  title: "Frododawn's Website"
+  left:
+    - text: "About"
+      href: index.html
+    - text: "Breweries EDA"
+      href: Beers-BreweriesRMDbu.html
